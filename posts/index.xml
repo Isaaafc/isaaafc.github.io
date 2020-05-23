@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on </title>
-    <link>https://examplesite.com/posts/</link>
+    <link>https://isaaafc.github.io/posts/</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 19 May 2020 23:24:03 +0800</lastBuildDate>
     
-	<atom:link href="https://examplesite.com/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://isaaafc.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Test</title>
-      <link>https://examplesite.com/posts/my-first-post/</link>
+      <link>https://isaaafc.github.io/posts/my-first-post/</link>
       <pubDate>Tue, 19 May 2020 23:24:03 +0800</pubDate>
       
-      <guid>https://examplesite.com/posts/my-first-post/</guid>
+      <guid>https://isaaafc.github.io/posts/my-first-post/</guid>
       <description></description>
     </item>
     
