@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>https://examplesite.com/</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 May 2020 23:24:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://examplesite.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Test</title>
+      <link>https://examplesite.com/posts/my-first-post/</link>
+      <pubDate>Tue, 19 May 2020 23:24:03 +0800</pubDate>
+      
+      <guid>https://examplesite.com/posts/my-first-post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://examplesite.com/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://examplesite.com/about/</guid>
+      <description>About me I&amp;rsquo;m a data scientist based in Hong Kong. My work is mainly on prediction and analytics in construction. Having experiences in various frameworks, my current main tools are Python and C#.
+Feel free to contact me if there are available opportunities.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://examplesite.com/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://examplesite.com/projects/</guid>
+      <description>Projects My side projects.
+Axomark Anonymous bookmarks with password protection.
+axomark.xyz
+C# MSSQL Wrapper SQL Server Query builder for C#.
+GitHub Link
+Distributed estimation via paid crowd work Accepted ICASSP 2016 research paper on collective intelligence.
+IEEE Link
+PTAM on Android Porting the PTAM Augmented Reality algorithm to Android 4.x as my final year project in university.
+Demo Video 1 | Demo Video 2</description>
+    </item>
+    
+  </channel>
+</rss>
