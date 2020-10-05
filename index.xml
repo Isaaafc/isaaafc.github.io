@@ -27,8 +27,8 @@ The model depends on a number of previous architectures, including WaveNet and P
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://isaaafc.github.io/about/</guid>
-      <description>About me I&amp;rsquo;m a data scientist based in Hong Kong. My work is mainly on prediction and analytics in construction. Having experiences in various frameworks, my current main tools are Python and C#.
-Feel free to contact me if there are available opportunities.</description>
+      <description>About me Hong Kong based Data Scientist. My work is mainly on prediction and analytics in construction and IoT. Besides, I&amp;rsquo;m most interested in product analytics and programmatic music generation.
+Check out my résumé and projects. Feel free to contact me if there are available opportunities.</description>
     </item>
     
     <item>
@@ -39,9 +39,11 @@ Feel free to contact me if there are available opportunities.</description>
       <guid>https://isaaafc.github.io/projects/</guid>
       <description>Projects My side projects.
 Axomark Anonymous bookmarks with password protection.
-axomark.xyz
+Link
+SiteWision Construction site monitoring with deep learning.
+Link
 C# MSSQL Wrapper SQL Server Query builder for C#.
-GitHub Link
+GitHub | NuGet
 Distributed estimation via paid crowd work Accepted ICASSP 2016 research paper on collective intelligence.
 IEEE Link
 PTAM on Android Porting the PTAM Augmented Reality algorithm to Android 4.x as my final year project in university.
