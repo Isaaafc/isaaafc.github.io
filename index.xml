@@ -6,18 +6,19 @@
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 May 2020 23:24:03 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://isaaafc.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Test</title>
-      <link>https://isaaafc.github.io/posts/my-first-post/</link>
-      <pubDate>Tue, 19 May 2020 23:24:03 +0800</pubDate>
+      <title>Implementing midi2wave - Part 1: PixelCNN</title>
+      <link>https://isaaafc.github.io/posts/midi2wave-part-1-pixelcnn/</link>
+      <pubDate>Mon, 29 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://isaaafc.github.io/posts/my-first-post/</guid>
-      <description></description>
+      <guid>https://isaaafc.github.io/posts/midi2wave-part-1-pixelcnn/</guid>
+      <description>This is an attempt to implement the wave2midi2wave model. Specifically, I&amp;rsquo;m only interested in the midi2wave part. The only reason behind is to train my PyTorch skills, and attempt to create an AI harmonizer.
+The model depends on a number of previous architectures, including WaveNet and PixelCNN. Therefore, the best way is probably to implement these models before integrating them into a final midi2wave model. This blog post documents what my steps to implement the first model - PixelCNN [1].</description>
     </item>
     
     <item>
