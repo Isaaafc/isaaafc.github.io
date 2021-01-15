@@ -12,13 +12,13 @@
     
     
     <item>
-      <title>Implementing midi2wave - Part 1: PixelCNN</title>
-      <link>https://isaaafc.github.io/posts/midi2wave-part-1-pixelcnn/</link>
+      <title>ABOUT ME</title>
+      <link>https://isaaafc.github.io/posts/about/</link>
       <pubDate>Mon, 29 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://isaaafc.github.io/posts/midi2wave-part-1-pixelcnn/</guid>
-      <description>This is an attempt to implement the wave2midi2wave model. Specifically, I&amp;rsquo;m only interested in the midi2wave part. The only reason behind is to train my PyTorch skills, and attempt to create an AI harmonizer.
-The model depends on a number of previous architectures, including WaveNet and PixelCNN. Therefore, the best way is probably to implement these models before integrating them into a final midi2wave model. This blog post documents what my steps to implement the first model - PixelCNN [1].</description>
+      <guid>https://isaaafc.github.io/posts/about/</guid>
+      <description>Hong Kong based Data Scientist. My work is mainly on prediction and analytics in construction and IoT. Besides, I&amp;rsquo;m most interested in product analytics and programmatic music generation.
+Check out my résumé and projects. Feel free to contact me if there are available opportunities.</description>
     </item>
     
   </channel>

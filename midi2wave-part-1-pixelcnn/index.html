@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"><html lang="en" data-theme="light">
+<head>
+    <title> Isaac Phua | Implementing midi2wave - Part 1: PixelCNN </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.70.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Data Scientist. Pianist. Drummer.">
+    
+    <link rel="stylesheet" href="https://isaaafc.github.io/css/style.min.d2283265d5166812143a72f6b94bc06826436f98c70aea549101973f1910b41a.css" integrity="sha256-0igyZdUWaBIUOnL2uUvAaCZDb5jHCupUkQGXPxkQtBo=" type="text/css">
+    
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <base href="https://isaaafc.github.io">
+    
+    <link rel="shortcut icon" href="https://isaaafc.github.iofavicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://isaaafc.github.ioapple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://isaaafc.github.iofavicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://isaaafc.github.iofavicon-16x16.png">
+
+    <link rel="canonical" href="https://isaaafc.github.io/midi2wave-part-1-pixelcnn/">
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="https://isaaafc.github.io/images/profile.png" alt="profile picture">
+        <h3 title=""><a href="/">Isaac Phua</a></h3>
+        <div class="description">
+          <p>Data Scientist. Pianist. Drummer.</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <a href="https://www.linkedin.com/in/isaac-phua-bb0143129/" rel="me" >
+          <i class="fa fa-linkedin" aria-hidden="true" title="Linkedin"></i>
+        </a>
+        
+        <a href="https://github.com/Isaaafc" rel="me" >
+          <i class="fa fa-github" aria-hidden="true" title="GitHub"></i>
+        </a>
+        
+        <a href="mailto:isaacphua.work@gmail.com" rel="me" >
+          <i class="fa fa-envelope" aria-hidden="true" title="e-mail"></i>
+        </a>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; Isaac Phua 2021 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <div class="nav">
+        
+        
+        <li><a  href="/" title="">About</a></li>
+
+        
+        <li><a  href="/projects/" title="">Projects</a></li>
+
+        
+        <li><a  href="/resume.pdf" title="">Résumé</a></li>
+
+        
+    </div>
+    <div class="themeswitcher">
+        <a class="theme-switch" title="Switch Theme">
+            <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </a>
+    </div>
+</div>
+
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Implementing midi2wave - Part 1: PixelCNN
+        </h3>
+        
+        </div>
+
+    <p>This is an attempt to implement the <a href="https://magenta.tensorflow.org/maestro-wave2midi2wave">wave2midi2wave</a> model. Specifically, I&rsquo;m only interested in the <em>midi2wave</em> part. The only reason behind is to train my PyTorch skills, and attempt to create an AI harmonizer.</p>
+<p>The model depends on a number of previous architectures, including WaveNet and PixelCNN. Therefore, the best way is probably to implement these models before integrating them into a final midi2wave model. This blog post documents what my steps to implement the first model - <a href="https://arxiv.org/pdf/1601.06759.pdf">PixelCNN</a> [1].</p>
+<h2 id="introduction-to-pixelcnn">Introduction to PixelCNN</h2>
+<p>First, let&rsquo;s start with an introduction to PixelCNN. At its core, PixelCNN is a generative model that generates an image pixel by pixel sequentially. Each pixel is generated based on a joint probability of the previous pixels.</p>
+<p><img src="images/pixelcnn/product_rule.jpg" alt="Product rule"></p>
+<p><img src="images/pixelcnn/pixel_by_pixel_illustration.png" alt="Pixel by pixel"></p>
+<p>The way to achieve this is more of an implementation problem. Let&rsquo;s first consider the simplest image of only blacks and whites. The proposed method is to simple apply a mask on the training sample using element-wise multiplication. The mask for a pixel is a matrix of 0s in the positions of the previous pixels, and 1s in the positions of the rest. However, masking the entire image is extremely expensive and slow to train. Therefore, the paper proposes using a convolution to only mask a small area of at a time.</p>
+<p><img src="images/pixelcnn/masks.png" alt="Masks"></p>
+<p>Note that this aproach comes with certain sacrifices. The most obvious one being lost of information. Instead of looking at the entire context before the current pixel, this method only looks at a small area, resulting in blindspots. There are a few papers that address this problem, including a follow up paper by the original authors of PixelCNN proposing a Gated version. The Gated version is the one WaveNet uses, so we will also discuss it in a later blog post.</p>
+<p>After understanding masks on BW images, let&rsquo;s move to masking colored (RGB) images.</p>
+<p>The architecture in the paper also includes a residual block configuration. It is a rather interesting approach that downsamples the input to half the dimensions and then upsampling it again.</p>
+<p><img src="images/pixelcnn/res_block.png" alt="Residual Blocks"></p>
+<p>There are many resources online introducing the architecture that are clear and concise. For further reading, please refer to the reference list at the bottom, though I highly recommend reading the original paper first.</p>
+<h2 id="implementation-in-pytorch">Implementation in PyTorch</h2>
+<p>The paper presented a pretty simple model architecture. However, implementing the model is quite tricky. After the first few attempts to implement the model from the paper&rsquo;s description and realizing my model is not learning anything, I searched on Github for working examples in PyTorch. I found only <a href="https://github.com/singh-hrituraj/PixelCNN-Pytorch">one repository</a> [4] that worked &ldquo;out of the box&rdquo; without tweaking the code and fixing bugs. However, although it works very well, the repo doesn&rsquo;t follow the exact architecture that&rsquo;s described in the paper. Not knowing why at first, I decided to try modifying it bit by bit and see where did my implementation go wrong. Later, I found out there was a bug in my mask implementation.</p>
+<p>Starting out, I tried to make the model more configurable by using nn.Sequential to replace the individual convolutional layers. The results were somehow significantly worse. I experiemented with various models afterwards and the ones using nn.Sequential were always worse than those directly using nn.Module. Unable to figure out what&rsquo;s the reason, I gave up and used nn.Module from then on.</p>
+<p><strong>Module implementation after 5 epochs:</strong></p>
+<p><img src="images/pixelcnn/sample_5_module.png" alt="Module sample 5 epochs"></p>
+<p>Next, I tried replacing the conv layers in the repo with residual blocks as described in the paper. The results were not as good. Also, training time was a bit longer as well. The original implementation generated recognizable digits after just 5 epochs, but this implementation generates wiggly digits even after 20 epochs.</p>
+<p><strong>After 5 epochs:</strong></p>
+<p><img src="images/pixelcnn/sample_5_res_sequential.png" alt="7 Residual Blocks sample 5 epochs"></p>
+<p><strong>After 20 epochs:</strong></p>
+<p><img src="images/pixelcnn/sample_20_res_sequential.png" alt="7 Residual Blocks sample 20 epochs"></p>
+<p>The paper also described a hidden dimension of 128, 15 residual blocks and 1024 filters in the two layers before output. My GPU (GTX1650 MaxQ) doesn&rsquo;t have enough RAM for that, so I reduced the filters of the final layer to 256. You can also see my resulting image is smaller and smaller because I had to reduce the batch size to fit the model into my GPU memory. nn.BatchNorm2d layers are added to speed up convergence.</p>
+<p><strong>Final result after 15 epochs:</strong></p>
+<p><img src="images/pixelcnn/sample_5_final.png" alt="Final result 15 epochs"></p>
+<p>As seen in the image, the final results are still wiggly and not as good as the model implemented in the original code. Training time is also much longer (~3 mins/epoch vs ~15 mins/epoch). To generate the final result with my GPU, I also had to reduce the batch size further. But it works better than the previous versions, the digits are somewhat recognizable after 5 epochs. Surely with more epoch the result would improve, but image generation is not the point of this project. The model stated in the paper was adopted at last, because that&rsquo;s what the WaveNet model is referring to. Also, I&rsquo;m expecting the Gated PixelCNN will improve the results and training time further.</p>
+<h2 id="references">References</h2>
+<p>[1] - <a href="https://arxiv.org/pdf/1601.06759.pdf">Pixel Recurrent Neural Network</a></p>
+<p>[2] - <a href="http://sergeiturukin.com/2017/02/22/pixelcnn.html">Sergei Turukin&rsquo;s Blog</a></p>
+<p>[3] - <a href="http://bjlkeng.github.io/posts/pixelcnn/">BJLKeng&rsquo;s Blog</a></p>
+<p>[4] - <a href="https://github.com/singh-hrituraj/PixelCNN-Pytorch">singh-hrituraj&rsquo;s Github repo</a></p>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+        
+      </div>
+    </div>
+
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+
+
+
+<script type="text/javascript" src="https://isaaafc.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js" integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="></script>
+
+
+
+
+
+<script type="text/javascript" src="https://isaaafc.github.io/js/bundle.min.dfa144512c41fd409cbcf1a1e0b59bef1e4358723af0c84886fd82343db1d101.js" integrity="sha256-36FEUSxB/UCcvPGh4LWb7x5DWHI68MhIhv2CND2x0QE="></script>
+
+<script type="text/javascript" src="https://isaaafc.github.io/js/medium-zoom.min.7487768bffcc6aee437cf6a4ac7da5d2ffc61dc63b36316a14122ceb26b34c70.js" integrity="sha256-dId2i//Mau5DfPakrH2l0v/GHcY7NjFqFBIs6yazTHA="></script>
+
+<link rel="stylesheet" href="https://isaaafc.github.io/css/medium-zoom.min.a1468f7a1cce6fe96c4b5483cb4645b85728a32b3abbd598c375a92df16230ef.css" integrity="sha256-oUaPehzOb&#43;lsS1SDy0ZFuFcooys6u9WYw3WpLfFiMO8=" type="text/css"></html></body>
+
+</html>
