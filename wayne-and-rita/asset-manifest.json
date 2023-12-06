@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.da93f121.css",
-    "main.js": "/static/js/main.7af85b29.js",
-    "static/js/787.bf210bf4.chunk.js": "/static/js/787.bf210bf4.chunk.js",
-    "index.html": "/index.html",
-    "main.da93f121.css.map": "/static/css/main.da93f121.css.map",
-    "main.7af85b29.js.map": "/static/js/main.7af85b29.js.map",
-    "787.bf210bf4.chunk.js.map": "/static/js/787.bf210bf4.chunk.js.map"
+    "main.css": "/wayne-and-rita/static/css/main.da93f121.css",
+    "main.js": "/wayne-and-rita/static/js/main.e5bd5585.js",
+    "static/js/787.bf210bf4.chunk.js": "/wayne-and-rita/static/js/787.bf210bf4.chunk.js",
+    "index.html": "/wayne-and-rita/index.html",
+    "main.da93f121.css.map": "/wayne-and-rita/static/css/main.da93f121.css.map",
+    "main.e5bd5585.js.map": "/wayne-and-rita/static/js/main.e5bd5585.js.map",
+    "787.bf210bf4.chunk.js.map": "/wayne-and-rita/static/js/787.bf210bf4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.da93f121.css",
-    "static/js/main.7af85b29.js"
+    "static/js/main.e5bd5585.js"
   ]
 }
